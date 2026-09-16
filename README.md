@@ -32,6 +32,7 @@ Biến tùy chọn (có giá trị mặc định nếu bỏ trống):
 |---------------------------|--------------------------------------------------------------|---------------------------------------------|
 | `SYSTEM_PROMPT`           | `Bạn là một trợ lý AI hữu ích, trả lời ngắn gọn và chính xác.` | System prompt định hình vai trò của bot     |
 | `MAX_HISTORY_MESSAGES`    | `20`                                                          | Số lượng tin nhắn giữ lại trong ngữ cảnh hội thoại |
+| `AVAILABLE_MODELS`        | chỉ `AI_MODEL_NAME`                                           | Danh sách model cho phép chọn qua lệnh `/model` trong Telegram, phân cách bằng dấu phẩy. Model có chứa `image` trong tên (vd. `gemini-3.1-flash-image`) sẽ tự động dùng API tạo ảnh thay vì chat text. |
 
 ### Lưu ý quan trọng: TẮT Healthcheck Port
 
