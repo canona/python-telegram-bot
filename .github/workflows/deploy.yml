@@ -1,0 +1,39 @@
+name: Deploy to Coolify
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint (flake8)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Run flake8 syntax check
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+
+  deploy:
+    name: Trigger Coolify Deploy
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Coolify Deploy Webhook
+        run: |
+          curl --fail --silent --show-error --request GET \
+            --url "${{ secrets.COOLIFY_WEBHOOK_URL }}"
